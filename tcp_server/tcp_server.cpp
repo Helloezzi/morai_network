@@ -16,7 +16,7 @@ helloworld_server.c
 #include <netinet/in.h>
 #endif
 
-void error_handling(char *message);
+#include "util.cpp"
 
 int main(int argc, char **argv)
 {
@@ -95,11 +95,4 @@ int main(int argc, char **argv)
     
     printf("terminate test program");
     return 0;
-}
-
-void error_handling(char *message)
-{
-    fputs(message, stderr);
-    fputc('\n', stderr);
-    exit(1);
 }
