@@ -1,7 +1,7 @@
 ### tcp_example
 
 
-### How to build
+### build
 
 ```
 mkdir build
