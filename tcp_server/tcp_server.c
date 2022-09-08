@@ -11,6 +11,9 @@ helloworld_server.c
 #pragma comment(lib, "ws2_32.lib")
 #else
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <netinet/in.h>
 #endif
 
 void error_handling(char *message);
@@ -19,12 +22,18 @@ int main(int argc, char **argv)
 {
     printf("tcp server start\n");
 
-    WSADATA wsadata;
-    
+#ifdef _WIN32
+    WSADATA wsadata;    
     SOCKET server_socket;
     SOCKET client_socket;    
     SOCKADDR_IN serverAddr;
     SOCKADDR_IN clientAddr;
+#else
+    int server_socket;
+    int client_socket;
+    struct sockaddr_in serverAddr;
+    struct sockaddr_in clientAddr;
+#endif 
 
     int szClientAddr;
     char message[] = "Hello world\n";
@@ -35,11 +44,13 @@ int main(int argc, char **argv)
     }
 
     /* Load Winsock 2.2 DLL */
+    #ifdef _WIN32
     if (WSAStartup(MAKEWORD(2,2), &wsadata) != 0)
         error_handling("WSAStartup() error!");
+    #endif
 
     server_socket = socket(PF_INET, SOCK_STREAM, 0);
-    if (server_socket == INVALID_SOCKET)
+    if (server_socket == -1)
         error_handling("socket() error!");
     
     memset(&serverAddr, 0, sizeof(serverAddr));
@@ -61,7 +72,11 @@ int main(int argc, char **argv)
     
     send(client_socket, message, sizeof(message), 0);
 
+    #ifdef _WIN32
     closesocket(client_socket);
+    #else
+    close(client_socket);
+    #endif  
     WSACleanup();
 
     printf("terminate test program");
