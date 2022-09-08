@@ -16,10 +16,16 @@
 
 int main(int argc, char **argv)
 {
+    #ifdef _WIN32
+    SOCKET sock;
+    SOCKADDR_IN server_addr;
+    #else
     int sock;
     struct sockaddr_in server_addr;
+    #endif  
+    
     char message[30];
-    int str_len;
+    int str_len = 0;
 
     if (argc != 3)
     {
@@ -57,6 +63,6 @@ int main(int argc, char **argv)
     #else
     close(sock);
     #endif
-    
+
     return 0;
 }
