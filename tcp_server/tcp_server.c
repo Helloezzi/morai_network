@@ -55,32 +55,45 @@ int main(int argc, char **argv)
     
     memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
+    #ifdef _WIN32
     serverAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
-    serverAddr.sin_port = htons(atoi(argv[1]));
+    #else
+    serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    #endif  
+    serverAddr.sin_port = htons(atoi(argv[1]));    
     
-    if (bind(server_socket, (SOCKADDR*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
+    #ifdef _WIN32
+    if (bind(server_socket, (SOCKADDR*)&serverAddr, sizeof(serverAddr)) == -1)
         error_handling("bind() error!");
+    #else
+    if (bind(server_socket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1)
+        error_handling("bind() error!");
+    #endif
     
-    if (listen(server_socket, 5)==SOCKET_ERROR)
+    if (listen(server_socket, 5) == -1)
         error_handling("listen() error!");
     
     szClientAddr = sizeof(clientAddr);
-    client_socket = accept(server_socket, (SOCKADDR*)&clientAddr, &szClientAddr);
 
-    if (client_socket == INVALID_SOCKET)
+    #ifdef _WIN32
+    client_socket = accept(server_socket, (SOCKADDR*)&clientAddr, &szClientAddr);
+    #else
+    client_socket = accept(server_socket, (struct sockaddr*)&clientAddr, &szClientAddr);
+    #endif
+
+    if (client_socket == -1)
         error_handling("accept() error!");
     
     send(client_socket, message, sizeof(message), 0);
 
     #ifdef _WIN32
     closesocket(client_socket);
+    WSACleanup();
     #else
     close(client_socket);
     #endif  
-    WSACleanup();
-
+    
     printf("terminate test program");
-
     return 0;
 }
 
