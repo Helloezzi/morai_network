@@ -8,15 +8,14 @@
 #include <arpa/inet.h>
 #endif
 
-namespace Morai_Net_tcp {
+#include "socket.h"
+
+namespace Morai_Net {
     class tcp_server
     {
     private:
-    #ifdef _WIN32
-    #else    
         sockaddr_in m_server;
-    #endif
-        tcpsocket_t m_socketServer;
+        Socket m_socketServer;
         bool m_isRunnig;
     public:
         tcp_server(/* args */);
