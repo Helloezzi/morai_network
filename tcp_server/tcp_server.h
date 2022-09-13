@@ -14,16 +14,23 @@ namespace Morai_Net {
     class tcp_server
     {
     private:
+        int m_port;
         sockaddr_in m_server;
         Socket m_socketServer;
         bool m_isRunnig;
     public:
-        tcp_server(/* args */);
+        tcp_server();
+        tcp_server(const unsigned int port);
         ~tcp_server();
 
-        bool start(const unsigned int port);
-        bool start(const unsigned int port, const unsigned int maxClients);
+        bool start();
+        bool stop();
 
+        bool send(const Socket &id, const char* msg, const int size);
+        bool receive(const Socket &id, const char* msg, const int size);
+
+        Socket* waitForConnect();
+        bool running();
     };
 }
 

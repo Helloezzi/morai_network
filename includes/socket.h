@@ -3,7 +3,6 @@
 #ifndef	__SOCKET_H__
 #define	__SOCKET_H__
 
-// Networking namespace
 namespace Morai_Net {
 	// Socket class
 	class Socket {
