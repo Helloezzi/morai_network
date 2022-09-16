@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 #endif
 
-#include "socket.h"
+#include "../includes/socket.h"
 
 class tcp_server
 {
