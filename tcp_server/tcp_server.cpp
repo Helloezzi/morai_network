@@ -1,4 +1,5 @@
-
+#include <iostream>
+#include <cstring>
 #include "tcp_server.h"
 
 tcp_server::tcp_server() : 
@@ -31,7 +32,9 @@ bool tcp_server::start() {
     }
 
     // Enable multiclient connect
-    if (::setsockopt(m_socketServer.toImple<int>(), SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &1, sizeof(int)) < 0) {
+    int multiclient = 1;
+    if (::setsockopt(m_socketServer.toImpl<int>(), SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+         &multiclient, sizeof(int)) < 0) {
         return false;
     }
     
@@ -64,8 +67,14 @@ bool tcp_server::send(const Socket &id, const char* msg, const int size)
     return true;
 }
 
-bool tcp_server::receive(const Socket &id, const char* msg, const int size) {
-    if (id.receive(msg, size) < 0) {
+bool tcp_server::receive(const Socket &socket, char* msg, const int size) {
+    int msg_size = 0;
+    if ((msg_size = socket.receive(msg, size)) < 0) {
+        return false;
+    }
+    else if (msg_size == 0)
+    {
+        // no client
         return false;
     }
     return true;
@@ -75,9 +84,9 @@ Socket* tcp_server::waitForConnect() {
     int socketClient = -1;
     sockaddr_in clientAddr;
     socklen_t length = sizeof(sockaddr_in);
-    socketClient = ::accept(m_socketServer.toImpl<int>(), 
-            reinterpret_cast<sockaddr*>(&clientAddr), static_cast<socklen_t*>(&length);
-    if (socketClient > 0) {
+
+    int temp = ::accept(m_socketServer.toImpl<int>(), reinterpret_cast<sockaddr*>(&clientAddr), static_cast<socklen_t*>(&length));
+    if (socketClient = temp) {
         std::cout << "New client connected" << std::endl;
     }
     return new Socket(socketClient);

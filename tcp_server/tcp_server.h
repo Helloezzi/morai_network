@@ -26,7 +26,7 @@ public:
     bool stop();
 
     bool send(const Socket &id, const char* msg, const int size);
-    bool receive(const Socket &id, const char* msg, const int size);
+    bool receive(const Socket &id, char* msg, const int size);
 
     Socket* waitForConnect();
     bool running();

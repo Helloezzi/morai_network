@@ -8,7 +8,7 @@ void function1()
     printf("test functions1");
 }
 
-void error_handling(char *message)
+void error_handling(const char *message)
 {
     fputs(message, stderr);
     fputc('\n', stderr);
