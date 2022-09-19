@@ -1,41 +1,31 @@
+// socket.h file
 #pragma	once
 
-#ifndef	__SOCKET_H__
-#define	__SOCKET_H__
+#ifndef	SOCKET_H_
+#define	SOCKET_H_
 
+#ifdef _WIN32
+#include <WinSock2.h>
+#pragma comment(lib, "ws2_32.lib")
+#else
+#include <unistd.h>	
+#include <sys/socket.h>	
+#include <arpa/inet.h>
+#endif
+
+namespace morainetwork {	
 // Socket class
-class Socket {
-	int	unixSocket;		// Unix socket handle type
-
+class Socket
+{		
 public:
-	Socket();
-	template<typename T>
-	explicit Socket(T&);
-	~Socket();
-
-	bool	open();
-	bool	close();
-	int	send(const char* msg, const int size) const;
-	int	receive(char* msg, const int size) const;
-
-	template<typename T>
-	void	fromImpl(T&);
-	template<typename T>
-	T&	toImpl();
+	virtual ~Socket();
+	virtual bool Open() = 0;
+	virtual bool Close() {}
+	virtual int Send(const char* msg, const int size) = 0;
+	virtual int Receive(char* msg, const int size) = 0;
+protected:
+	int m_socket;	
 };
-
-template<typename T>
-Socket::Socket(T &soc) {
-	fromImpl<T>(soc);
 }
 
-template<typename T>
-void Socket::fromImpl(T &soc) {
-	unixSocket = static_cast<int>(soc);
-}
-
-template<typename T>
-T& Socket::toImpl() {
-	return static_cast<T&>(unixSocket);
-}
-#endif	// __SOCKET_H__
+#endif	// SOCKET_H_
