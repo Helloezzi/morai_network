@@ -23,6 +23,7 @@ int main(int argc, const char* argv[])
     }
 
     while(server.running()) {
+        std::cout << "wait for connect" << std::endl;
         Socket* client = server.waitForConnect();
 
         std::thread t1 = std::thread(connectionHandler, std::ref(server), client);
