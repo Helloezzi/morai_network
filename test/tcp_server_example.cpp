@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "define.h"
-#include "../network/tcp_server.h"
+#include "../src/tcp_server.h"
 
 void connectionHandler(tcp_server &server, Socket* id)
 {

@@ -4,6 +4,7 @@
 #define TCP_SERVER_H
 
 #ifdef _WIN32
+#include <socket.h>
 #else
 #include <arpa/inet.h>
 #endif
