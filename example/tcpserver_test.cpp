@@ -2,6 +2,8 @@
 helloworld_server.c
 */
 
+/*
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,7 +45,7 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    /* Load Winsock 2.2 DLL */
+    // Load Winsock 2.2 DLL
     #ifdef _WIN32
     if (WSAStartup(MAKEWORD(2,2), &wsadata) != 0)
         error_handling("WSAStartup() error!");
@@ -96,3 +98,4 @@ int main(int argc, char **argv)
     printf("terminate test program");
     return 0;
 }
+*/

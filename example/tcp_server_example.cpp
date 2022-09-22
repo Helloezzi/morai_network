@@ -4,9 +4,12 @@
 #include <memory>
 
 #include "define.h"
-#include "../src/tcp_server.h"
+#include "../src/tcpserver.h"
+#include "../src/tcpsocket.h"
 
-void connectionHandler(tcp_server &server, Socket* id)
+using namespace morainetwork;
+
+void connectionHandler(TcpServer &server, Socket* id)
 {
 
 }
@@ -16,7 +19,7 @@ int main(int argc, const char* argv[])
     char buffer[BUFFER_SIZE];
     memset(buffer, 0, sizeof(BUFFER_SIZE));
 
-    tcp_server server(PORT);
+    TcpServer server;
 
     if (server.start()) {
         std::cout << "server started " << std::endl;        
