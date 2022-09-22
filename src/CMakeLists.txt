@@ -1,1 +1,1 @@
-add_library(network.so SHARED tcpserver.cc tcpclient.cpp socket.cc)
+add_library(network.so SHARED tcpserver.cc socket.cc)
