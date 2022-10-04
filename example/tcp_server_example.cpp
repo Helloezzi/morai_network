@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
 {
     char buffer[BUFFER_SIZE];
     memset(buffer, 0, sizeof(BUFFER_SIZE));
-    printf("aaa");
+    printf("aaa bbb");
     
     /*
     TcpServer server;
