@@ -17,13 +17,15 @@ TcpServer::~TcpServer() {
 }
 
 bool TcpServer::start() 
-{    
-    if (!Open()) {
+{   
+    printf("tcp server start");
+    /*
+    if (!m_socket.Open()) {
         std::cout << "socket open error" << std::endl;
         return false;
     }    
 
-    /* Load Winsock 2.2 DLL */
+    //Load Winsock 2.2 DLL
     #ifdef _WIN32
     WSADATA wsadata;
     if (WSAStartup(MAKEWORD(2,2), &wsadata) != 0)
@@ -34,18 +36,18 @@ bool TcpServer::start()
     //if (m_socketServer == -1)
         //error_handling("socket() error!");
     
-    memset(&m_serverAddr, 0, sizeof(m_serverAddr));
+    memset(&m_socket.m_serverAddr, 0, sizeof(m_socket.m_serverAddr));    
 
-    m_serverAddr.sin_family = AF_INET;
+    m_socket.m_serverAddr.sin_family = AF_INET;
     #ifdef _WIN32
-    m_serverAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
+    m_socket.m_serverAddr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
     #else
-    m_serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    m_socket.m_serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     #endif  
-    m_serverAddr.sin_port = m_port;
+    m_socket.m_serverAddr.sin_port = m_port;
     
     #ifdef _WIN32
-    if (bind((SOCKET)m_socketServer, (SOCKADDR*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
+    if (bind((TcpSocket)m_socket, (SOCKADDR*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
         error_handling("bind() error!");
     #else
     if (bind(m_socketServer, (struct sockaddr*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
@@ -54,6 +56,7 @@ bool TcpServer::start()
     
     if (listen(m_socketServer, 5) == -1)
         error_handling("listen() error!");
+    */
 
     return true;
 }
@@ -63,10 +66,11 @@ bool TcpServer::stop()
     m_isRunnig = false;
 
     #ifdef _WIN32
-    closesocket(m_socketServer);
-    WSACleanup();
+    //closesocket(m_socketServer);
+    //WSACleanup();
+    //m_socket.Close();
     #else
-    close(m_socketServer);
+    //close(m_socketServer);
     #endif
     
     return true;
@@ -74,36 +78,19 @@ bool TcpServer::stop()
 
 bool TcpServer::send(const Socket &id, const char* msg, const int size)
 {
-    if (id.send(msg, size) < 0) {
-        return false;
-    }
+    //m_socket.Send()
+
     return true;
 }
 
 bool TcpServer::receive(const Socket &socket, char* msg, const int size) {
     int msg_size = 0;
-    if ((msg_size = socket.receive(msg, size)) < 0) {
-        return false;
-    }
-    else if (msg_size == 0)
-    {
-        // no client
-        return false;
-    }
     return true;
 }
 
-Socket* TcpServer::waitForConnect() {
-    int socketClient = -1;
-    sockaddr_in clientAddr;
-    socklen_t length = sizeof(sockaddr_in);
-
-    int temp = ::accept(m_socketServer.toImpl<int>(), reinterpret_cast<sockaddr*>(&clientAddr), static_cast<socklen_t*>(&length));
-    if (socketClient = temp) {
-        std::cout << "New client connected" << std::endl;
-    }
-    return new Socket(socketClient);
-}
+//Socket* TcpServer::waitForConnect() {
+    //return new Socket(socketClient);
+//}
 
 bool TcpServer::running() {
     return m_isRunnig;

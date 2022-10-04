@@ -10,7 +10,7 @@ class TcpSocket : public Socket
 public:
     TcpSocket();
     ~TcpSocket();
-    virtual bool Open();
+    virtual bool Open();    
     virtual int Send(const char* msg, const int size);
 	virtual int Receive(char* msg, const int size);
 public:

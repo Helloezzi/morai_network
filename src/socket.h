@@ -4,6 +4,8 @@
 #ifndef	SOCKET_H_
 #define	SOCKET_H_
 
+#include <iostream>
+
 #ifdef _WIN32
 #include <WinSock2.h>
 #pragma comment(lib, "ws2_32.lib")
@@ -18,9 +20,9 @@ namespace morainetwork {
 class Socket
 {		
 public:
-	virtual ~Socket();
+	~Socket();
 	virtual bool Open() = 0;
-	virtual bool Close() {}
+	bool Close() { std::cout << "socket close" << std::endl; return true; }
 	virtual int Send(const char* msg, const int size) = 0;
 	virtual int Receive(char* msg, const int size) = 0;
 protected:
