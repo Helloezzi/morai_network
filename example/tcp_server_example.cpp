@@ -4,10 +4,10 @@
 #include <memory>
 
 #include "define.h"
-#include "../src/tcpserver.h"
+//#include "../src/tcpserver.h"
 //#include "../src/tcpsocket.h"
 
-using namespace morainetwork;
+//using namespace morainetwork;
 
 int main(int argc, const char* argv[])
 {
@@ -15,12 +15,11 @@ int main(int argc, const char* argv[])
     memset(buffer, 0, sizeof(BUFFER_SIZE));
     printf("aaa");
     
+    /*
     TcpServer server;
     if (server.start()) {
         std::cout << "server started " << std::endl;        
-    }
-
-    /*
+    }    
     
     while(server.running()) {
         std::cout << "wait for connect" << std::endl;
