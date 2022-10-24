@@ -1,27 +1,25 @@
-/*
+
 #pragma once
 
 #include <iostream>
 #include "socket.h"
 
-namespace morainetwork {
-	Socket::~Socket() {
-		std::cout << "socket close" << std::endl;
-	}
-	
+namespace morainetwork {	
+	/*
 	bool Socket::OnClose() {
 		#ifdef _WIN32
-		if (::closesocket(m_socket) < 0) {
+		if (::closesocket(socket) < 0) {
 			return false;
 		}
 		WSACleanup();
 		#else
-		if (::close(m_socket) < 0) {
+		if (::close(socket) < 0) {
 			return false;
 		}
 		#endif
 		return true;
 	}
-}*/
+	*/
+}
 
 

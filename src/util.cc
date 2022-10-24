@@ -8,6 +8,11 @@ void function1()
     printf("test functions1");
 }
 
+void function2()
+{
+    printf("functrion2");
+}
+
 void error_handling(const char *message)
 {
     fputs(message, stderr);

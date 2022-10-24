@@ -5,19 +5,21 @@
 #include "socket.h"
 
 namespace morainetwork {
-class TcpSocket : public Socket
+class TcpSocket : public ISocket
 {
 public:
     TcpSocket();
     ~TcpSocket();
-    virtual bool Open();    
-    virtual int Send(const char* msg, const int size);
-	virtual int Receive(char* msg, const int size);
+    bool isOpen(int port);
+    bool isBind();
+    bool isListen();
+    //int Send(SOCKET client, const char* msg, const int size);
+	//virtual int Receive(char* msg, const int size);
 public:
     #ifdef _WIN32
     SOCKADDR_IN m_serverAddr;
     #else
-    sockaddr_in m_serverAddr;
+    struct sockaddr_in m_serverAddr;
     #endif
 };
 }

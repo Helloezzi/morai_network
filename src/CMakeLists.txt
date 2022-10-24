@@ -1,1 +1,1 @@
-add_library(network.dll SHARED tcpserver.cc socket.cc)
+add_library(network STATIC tcpserver.cc socket.cc tcpsocket.cc util.cc)
