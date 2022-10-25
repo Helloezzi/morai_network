@@ -1,0 +1,30 @@
+
+# interface team c/c++ coding style
+# 2022.10.25# 
+# refences
+# google c++ style guide
+# https://google.github.io/styleguide/cppguide.html#CTAD
+# 
+
+
+# <namespace>
+# 
+
+# <class>
+# ex) TestClass, 
+
+# <Interface class>
+# ex) ITestClass
+
+# <Method>
+# ex) 
+
+# <variable>
+# ex) number,  
+
+# <class member variable>
+# - m_socket
+# - vehicle_position
+
+
+

@@ -1,5 +1,6 @@
 
 #include "tcpsocket.h"
+#include <iostream>
 
 namespace morainetwork {
 TcpSocket::TcpSocket() {        
@@ -8,7 +9,7 @@ TcpSocket::TcpSocket() {
 TcpSocket::~TcpSocket() {
 }
 
-bool TcpSocket::isOpen(int port)
+bool TcpSocket::Open(int port)
 {    
     #ifdef _WIN32
     WSADATA wsadata;
@@ -18,8 +19,8 @@ bool TcpSocket::isOpen(int port)
     #endif
 
     // socket open
-    socket = ::socket(PF_INET, SOCK_STREAM, 0);
-    if (socket == -1) {
+    m_socket = ::socket(PF_INET, SOCK_STREAM, 0);
+    if (m_socket == -1) {
         return false;
 	}
     std::cout << "tcp socket open <port> : " << port << std::endl;
@@ -39,10 +40,16 @@ bool TcpSocket::isOpen(int port)
 	return true;
 }
 
-bool TcpSocket::isBind()
+void TcpSocket::Close()
+{
+    std::cout << "socket close" << std::endl;
+}
+
+
+bool TcpSocket::Bind()
 {
     #ifdef _WIN32
-    if (bind(socket, (SOCKADDR*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
+    if (::bind(m_socket, (SOCKADDR*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
         return false;
     #else
     if (bind(m_socketServer, (struct sockaddr*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
@@ -53,9 +60,9 @@ bool TcpSocket::isBind()
     return true;
 }
 
-bool TcpSocket::isListen()
+bool TcpSocket::Listen()
 {
-    if (listen(socket, 5) == -1)
+    if (::listen(m_socket, 5) == -1)
         return false;
     std::cout << "socket listen" << std::endl;
 }

@@ -1,20 +1,17 @@
-
 #ifndef	TCPSOCKET_H_
 #define	TCPSOCKET_H_
 
 #include "socket.h"
 
 namespace morainetwork {
-class TcpSocket : public ISocket
+class TcpSocket : public ISocket, protected IServer
 {
 public:
     TcpSocket();
     ~TcpSocket();
-    bool isOpen(int port);
-    bool isBind();
-    bool isListen();
-    //int Send(SOCKET client, const char* msg, const int size);
-	//virtual int Receive(char* msg, const int size);
+    bool Open(int port);
+    bool Bind();
+    bool Listen();
 public:
     #ifdef _WIN32
     SOCKADDR_IN m_serverAddr;

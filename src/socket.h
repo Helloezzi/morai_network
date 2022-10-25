@@ -1,10 +1,6 @@
 // socket.h file
-#pragma	once
-
 #ifndef	SOCKET_H_
 #define	SOCKET_H_
-
-#include <iostream>
 
 #ifdef _WIN32
 #include <WinSock2.h>
@@ -21,18 +17,28 @@ namespace morainetwork {
 	class ISocket
 	{		
 	public:
-		virtual ~ISocket() {}
-		//bool OnClose();
-		virtual bool isOpen(int port) = 0;
-		virtual bool isBind() = 0;
-		virtual bool isListen() = 0;
-		//virtual int Send(SOCKET client, const char* msg, const int size) = 0;
-		//virtual int Receive(char* msg, const int size) = 0;	
+		virtual bool Open(int port) = 0;
+		virtual void Close();
+	public:
 #ifdef _WIN32
-		SOCKET socket;
+		SOCKET m_socket;
 #else
-		int socket;
+		int m_socket;
 #endif
+	};
+
+	class IServer
+	{
+		public:			
+			virtual bool Bind() = 0;
+			virtual bool Listen() = 0;
+	};
+
+	class IClient
+	{
+		public:
+			virtual bool Connect() = 0;
+			virtual bool Disconnect() = 0;
 	};
 }
 
