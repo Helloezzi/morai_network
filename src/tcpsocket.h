@@ -4,14 +4,13 @@
 #include "socket.h"
 
 namespace morainetwork {
-class TcpSocket : public ISocket, protected IServer
+class TcpSocket : public ISocket
 {
 public:
     TcpSocket();
     ~TcpSocket();
     bool Open(int port);
-    bool Bind();
-    bool Listen();
+    void Close();
 public:
     #ifdef _WIN32
     SOCKADDR_IN m_serverAddr;

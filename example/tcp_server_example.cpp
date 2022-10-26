@@ -8,11 +8,14 @@
 #include "define.h"
 #include "../src/tcpserver.h"
 //#include "../src/util.cc"
+#include "../src/util.h"
 
 using namespace morainetwork;
 
 int main(int argc, const char* argv[])
 {
+    Util::Log("test message");
+
     char buffer[BUFFER_SIZE];
     memset(buffer, 0, sizeof(BUFFER_SIZE));
 

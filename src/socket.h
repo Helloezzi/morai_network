@@ -18,10 +18,10 @@ namespace morainetwork {
 	{		
 	public:
 		virtual bool Open(int port) = 0;
-		virtual void Close();
+		virtual void Close() = 0;
 	public:
 #ifdef _WIN32
-		SOCKET m_socket;
+		SOCKET socket;
 #else
 		int m_socket;
 #endif

@@ -19,8 +19,8 @@ bool TcpSocket::Open(int port)
     #endif
 
     // socket open
-    m_socket = ::socket(PF_INET, SOCK_STREAM, 0);
-    if (m_socket == -1) {
+    socket = ::socket(PF_INET, SOCK_STREAM, 0);
+    if (socket == -1) {
         return false;
 	}
     std::cout << "tcp socket open <port> : " << port << std::endl;
@@ -43,28 +43,6 @@ bool TcpSocket::Open(int port)
 void TcpSocket::Close()
 {
     std::cout << "socket close" << std::endl;
-}
-
-
-bool TcpSocket::Bind()
-{
-    #ifdef _WIN32
-    if (::bind(m_socket, (SOCKADDR*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
-        return false;
-    #else
-    if (bind(m_socketServer, (struct sockaddr*)&m_serverAddr, sizeof(m_serverAddr)) == -1)
-        return false;
-    #endif
-
-    std::cout << "socket bind" << std::endl;
-    return true;
-}
-
-bool TcpSocket::Listen()
-{
-    if (::listen(m_socket, 5) == -1)
-        return false;
-    std::cout << "socket listen" << std::endl;
 }
 
 /*
