@@ -38,7 +38,7 @@ bool TcpServer::Listen()
 }
 
 
-bool TcpServer::start(int port) 
+bool TcpServer::start(char* port) 
 {
     std::cout << "tcp server start" << std::endl;
     // open
@@ -109,7 +109,7 @@ bool TcpServer::receive(const Socket &socket, char* msg, const int size) {
     //return new Socket(socketClient);
 //}
 
-bool TcpServer::running() {
+bool TcpServer::IsRunning() {
     return m_isRunnig;
 }
 }

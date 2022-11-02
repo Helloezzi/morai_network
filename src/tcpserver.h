@@ -21,12 +21,12 @@ public:
     
     TcpSocket m_tcp_socket;
 
-    bool start(int port);
+    bool start(char* port);
     bool stop();
     bool send(const char* msg, const int size);
     //bool receive(const Socket &id, char* msg, const int size);
     //Socket* waitForConnect();    
-    bool running();
+    bool IsRunning();
 };
 #endif // TCP_SERVER_H
 }

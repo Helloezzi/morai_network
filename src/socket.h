@@ -4,6 +4,7 @@
 
 #ifdef _WIN32
 #include <WinSock2.h>
+#include <windows.h>
 #pragma comment(lib, "ws2_32.lib")
 #else
 #include <unistd.h>	
@@ -17,7 +18,7 @@ namespace morainetwork {
 	class ISocket
 	{		
 	public:
-		virtual bool Open(int port) = 0;
+		virtual bool Open(char* port) = 0;
 		virtual void Close() = 0;
 	public:
 #ifdef _WIN32
@@ -32,6 +33,7 @@ namespace morainetwork {
 		public:			
 			virtual bool Bind() = 0;
 			virtual bool Listen() = 0;
+			virtual bool IsRunning() = 0;
 	};
 
 	class IClient

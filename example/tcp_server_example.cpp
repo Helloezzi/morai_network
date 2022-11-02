@@ -20,7 +20,7 @@ int main(int argc, const char* argv[])
     memset(buffer, 0, sizeof(BUFFER_SIZE));
 
     TcpServer server;
-    if (server.start(7789)) {
+    if (server.start("7789")) {
         std::cout << "server started " << std::endl;
     }
 
@@ -35,7 +35,13 @@ int main(int argc, const char* argv[])
     }
 
     server.stop();
-    return 0;
+    return 0;   
+}
+
+
+
+
+
 
     /*
     while(server.running()) {
@@ -56,5 +62,3 @@ int main(int argc, const char* argv[])
         std::cout << "server stopped" << std::endl;
     }
     */
-   
-}

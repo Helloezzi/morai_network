@@ -9,7 +9,7 @@ class TcpSocket : public ISocket
 public:
     TcpSocket();
     ~TcpSocket();
-    bool Open(int port);
+    bool Open(char* port);
     void Close();
 public:
     #ifdef _WIN32

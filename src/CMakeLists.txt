@@ -1,1 +1,1 @@
-add_library(network STATIC tcpserver.cc socket.cc tcpsocket.cc)
+add_library(network STATIC tcpserver.cc socket.cc tcpsocket.cc udpsocket.cc udpserver.cc)

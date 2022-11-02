@@ -9,7 +9,7 @@ TcpSocket::TcpSocket() {
 TcpSocket::~TcpSocket() {
 }
 
-bool TcpSocket::Open(int port)
+bool TcpSocket::Open(char* port)
 {    
     #ifdef _WIN32
     WSADATA wsadata;
@@ -34,7 +34,8 @@ bool TcpSocket::Open(int port)
     #else
     m_serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     #endif  
-    m_serverAddr.sin_port = htons(port);
+    //m_serverAddr.sin_port = htons(port);
+    m_serverAddr.sin_port = htons(atoi(port));
     std::cout << "port :  " << m_serverAddr.sin_port << std::endl;
         
 	return true;
